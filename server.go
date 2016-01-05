@@ -218,7 +218,11 @@ func (svr *Server) chroot(path string) string {
 }
 
 func (svr *Server) unchroot(path string) string {
-	return path[len(svr.rootDir):]
+	unchrootedPath := path[len(svr.rootDir):]
+	if unchrootedPath == "" {
+		return "/"
+	}
+	return unchrootedPath
 }
 
 func (p sshFxInitPacket) respond(svr *Server) error {
